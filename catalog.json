@@ -22,12 +22,12 @@
     "image": "https://image.tmdb.org/t/p/w1280/hWSb4UnIjlTvnvrP98NbFSO60HA.jpg"
   },
   {
-    "tmdbId": 79744,
-    "name": "Rookie",
+    "tmdbId": 1396,
+    "name": "Breaking Bad",
     "type": "tv",
     "season": 1,
     "episode": 1,
-    "image": "https://image.tmdb.org/t/p/w1280/70kTz0OmjjZe7zHvIDrq2iKW7PJ.jpg"
+    "image": "https://image.tmdb.org/t/p/w1280/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg"
   },
    {
     "tmdbId": 79744,
@@ -60,6 +60,12 @@
     "season": 1,
     "episode": 1,
     "image": "https://media.themoviedb.org/t/p/w600_and_h900_face/eK9ZDIq7gPFRJ0GGaWvgrXLZgXX.jpg"
+  },
+  {
+    "tmdbId": 1083381,
+    "name": "Backrooms",
+    "type": "movie",
+    "image": "https://image.tmdb.org/t/p/w1280/vpkNMkbisv5cTaIfCzUduYzXnjb.jpg"
   },
   {
     "tmdbId": 936075,
