@@ -5,6 +5,54 @@
     "type": "movie",
     "image": "https://image.tmdb.org/t/p/w300/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"
   },
+    {
+    "tmdbId": 61889,
+    "name": "Daredevil",
+    "type": "tv",
+    "season": 1,
+    "episode": 1,
+    "image": "https://image.tmdb.org/t/p/w1280/QWbPaDxiB6LW2LjASknzYBvjMj.jpg"
+  },
+   {
+    "tmdbId": 4057,
+    "name": "Criminal Minds",
+    "type": "tv",
+    "season": 1,
+    "episode": 1,
+    "image": "https://image.tmdb.org/t/p/w1280/hWSb4UnIjlTvnvrP98NbFSO60HA.jpg"
+  },
+  {
+    "tmdbId": 79744,
+    "name": "Rookie",
+    "type": "tv",
+    "season": 1,
+    "episode": 1,
+    "image": "https://image.tmdb.org/t/p/w1280/70kTz0OmjjZe7zHvIDrq2iKW7PJ.jpg"
+  },
+   {
+    "tmdbId": 79744,
+    "name": "Rookie",
+    "type": "tv",
+    "season": 1,
+    "episode": 1,
+    "image": "https://image.tmdb.org/t/p/w1280/70kTz0OmjjZe7zHvIDrq2iKW7PJ.jpg"
+  },
+  {
+    "tmdbId": 250670,
+    "name": "Maxton Hall",
+    "type": "tv",
+    "season": 1,
+    "episode": 1,
+    "image": "https://image.tmdb.org/t/p/w1280/slKAbvY2CjAIyJFqoLSh1WICzg6.jpg"
+  },
+  {
+    "tmdbId": 67178,
+    "name": "Punisher",
+    "type": "tv",
+    "season": 1,
+    "episode": 1,
+    "image": "https://image.tmdb.org/t/p/w1280/sHwIjTM9YiNOltXD0Z20PO9JmkO.jpg"
+  },
   {
     "tmdbId": 124364,
     "name": "From",
@@ -12,6 +60,18 @@
     "season": 1,
     "episode": 1,
     "image": "https://media.themoviedb.org/t/p/w600_and_h900_face/eK9ZDIq7gPFRJ0GGaWvgrXLZgXX.jpg"
+  },
+  {
+    "tmdbId": 936075,
+    "name": "Michael",
+    "type": "movie",
+    "image": "https://image.tmdb.org/t/p/w1280/3Qud19bBUrrJAzy0Ilm8gRJlJXP.jpg"
+  },
+  {
+    "tmdbId": 1439930,
+    "name": "The Punisher: One Last Kill",
+    "type": "movie",
+    "image": "https://image.tmdb.org/t/p/w1280/qQclTgLMDvGBuUBFGHRipxkEwWR.jpg"
   },
   {
     "tmdbId": 687163,
