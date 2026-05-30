@@ -1,8 +1,12 @@
 const CATALOG_URL = './catalog.json';
 const TV_QUERY = '?color=e50914&autoPlay=true&nextEpisode=true&episodeSelector=true';
 const FALLBACK_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
+const SCROLL_EPSILON = 2;
 
 const catalogList = document.getElementById('catalog-list');
+const catalogViewport = document.getElementById('catalog-viewport');
+const catalogPrevButton = document.getElementById('catalog-prev');
+const catalogNextButton = document.getElementById('catalog-next');
 const player = document.getElementById('player');
 const playerTitle = document.getElementById('player-title');
 const tabs = Array.from(document.querySelectorAll('.tab'));
@@ -125,15 +129,64 @@ function createCard(item) {
   return li;
 }
 
+function getCatalogScrollStep() {
+  const firstCard = catalogList.querySelector('.catalog-card');
+
+  if (firstCard) {
+    const styles = window.getComputedStyle(catalogList);
+    const gap = Number.parseFloat(styles.columnGap || styles.gap || '0') || 0;
+    return firstCard.getBoundingClientRect().width + gap;
+  }
+
+  return catalogList.clientWidth * 0.85;
+}
+
+function updateCatalogNavigation() {
+  const maxScroll = catalogList.scrollWidth - catalogList.clientWidth;
+  const hasOverflow = maxScroll > SCROLL_EPSILON;
+
+  if (catalogViewport) {
+    catalogViewport.classList.toggle('has-overflow', hasOverflow);
+  }
+
+  if (!catalogPrevButton || !catalogNextButton) {
+    return;
+  }
+
+  catalogPrevButton.hidden = !hasOverflow;
+  catalogNextButton.hidden = !hasOverflow;
+
+  if (!hasOverflow) {
+    catalogPrevButton.disabled = true;
+    catalogNextButton.disabled = true;
+    return;
+  }
+
+  const atStart = catalogList.scrollLeft <= SCROLL_EPSILON;
+  const atEnd = catalogList.scrollLeft >= maxScroll - SCROLL_EPSILON;
+
+  catalogPrevButton.disabled = atStart;
+  catalogNextButton.disabled = atEnd;
+}
+
+function scrollCatalog(direction) {
+  catalogList.scrollBy({
+    left: getCatalogScrollStep() * direction,
+    behavior: 'smooth',
+  });
+}
+
 function renderCatalog() {
   const filtered = getFilteredCatalog();
   catalogList.innerHTML = '';
+  catalogList.scrollLeft = 0;
 
   if (!filtered.length) {
     const empty = document.createElement('li');
     empty.className = 'empty-state';
     empty.textContent = 'No hay contenidos disponibles en este filtro.';
     catalogList.appendChild(empty);
+    updateCatalogNavigation();
     renderFeatured();
     return;
   }
@@ -142,6 +195,7 @@ function renderCatalog() {
     catalogList.appendChild(createCard(item));
   });
 
+  updateCatalogNavigation();
   renderFeatured();
 }
 
@@ -188,5 +242,13 @@ goCatalogButton.addEventListener('click', () => {
 goPlayerButton.addEventListener('click', () => {
   playerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
+
+if (catalogPrevButton && catalogNextButton) {
+  catalogPrevButton.addEventListener('click', () => scrollCatalog(-1));
+  catalogNextButton.addEventListener('click', () => scrollCatalog(1));
+}
+
+catalogList.addEventListener('scroll', updateCatalogNavigation, { passive: true });
+window.addEventListener('resize', updateCatalogNavigation);
 
 loadCatalog();

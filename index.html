@@ -46,7 +46,27 @@
             </div>
           </div>
 
-          <ul id="catalog-list" class="catalog-carousel"></ul>
+          <div id="catalog-viewport" class="catalog-carousel-wrap">
+            <button
+              id="catalog-prev"
+              class="catalog-nav catalog-nav-prev"
+              type="button"
+              aria-label="Desplazar catálogo a la izquierda"
+              hidden
+            >
+              &#10094;
+            </button>
+            <ul id="catalog-list" class="catalog-carousel"></ul>
+            <button
+              id="catalog-next"
+              class="catalog-nav catalog-nav-next"
+              type="button"
+              aria-label="Desplazar catálogo a la derecha"
+              hidden
+            >
+              &#10095;
+            </button>
+          </div>
         </section>
 
         <section id="player-section" class="player-panel">
