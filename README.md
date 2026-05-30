@@ -6,7 +6,6 @@ Website estático para visualizar películas y series usando Vidking.
 
 - Muestra un catálogo de películas y series desde `catalog.json`.
 - Permite alternar entre **Películas** y **Series** con pestañas en la interfaz.
-- Permite buscar contenidos por nombre desde el catálogo con coincidencia parcial.
 - Reproduce contenido con:
   - Películas: `https://www.vidking.net/embed/movie/{tmdbId}`
   - Series: `https://www.vidking.net/embed/tv/{tmdbId}/{season}/{episode}`
