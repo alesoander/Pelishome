@@ -6,6 +6,20 @@
     "image": "https://image.tmdb.org/t/p/w300/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"
   },
   {
+    "tmdbId": 124364,
+    "name": "From",
+    "type": "tv",
+    "season": 1,
+    "episode": 1,
+    "image": "https://media.themoviedb.org/t/p/w600_and_h900_face/eK9ZDIq7gPFRJ0GGaWvgrXLZgXX.jpg"
+  },
+  {
+    "tmdbId": 220102,
+    "name": "Spider-Noir",
+    "type": "movie",
+    "image": "https://www.themoviedb.org/tv/220102-spider-noir"
+  },
+  {
     "tmdbId": 1399,
     "name": "Game of Thrones",
     "type": "tv",
