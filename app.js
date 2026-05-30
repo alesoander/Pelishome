@@ -66,7 +66,7 @@ function renderFeatured() {
 
   if (!featured) {
     featuredTitle.textContent = 'No hay contenido disponible';
-    featuredDescription.textContent = 'Agrega elementos a catalog.json para comenzar a reproducir.';
+    featuredDescription.textContent = 'Vuelve más tarde para encontrar contenido disponible.';
     featuredPlayButton.disabled = true;
     return;
   }
@@ -101,7 +101,7 @@ function createCard(item) {
   title.textContent = item.name;
 
   const details = document.createElement('p');
-  details.textContent = item.type === 'tv' ? `Temporada ${item.season || 1} • Episodio ${item.episode || 1}` : `TMDB ${item.tmdbId}`;
+  details.textContent = item.type === 'tv' ? `Serie • T${item.season || 1}E${item.episode || 1}` : 'Película';
 
   const playButton = document.createElement('button');
   playButton.className = 'card-play';
