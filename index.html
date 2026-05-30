@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pelishome</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Pelishome</h1>
+      <p>Catálogo de películas y series conectado con Vidking.</p>
+    </header>
+
+    <main>
+      <section class="panel">
+        <h2>Cargar código</h2>
+        <form id="catalog-form">
+          <label>
+            Código TMDB
+            <input id="tmdbId" name="tmdbId" type="number" min="1" required />
+          </label>
+          <label>
+            Nombre
+            <input id="name" name="name" type="text" required />
+          </label>
+          <label>
+            Tipo
+            <select id="type" name="type" required>
+              <option value="movie">Película</option>
+              <option value="tv">Serie</option>
+            </select>
+          </label>
+          <div id="tv-fields" class="tv-fields hidden">
+            <label>
+              Temporada
+              <input id="season" name="season" type="number" min="1" value="1" />
+            </label>
+            <label>
+              Episodio
+              <input id="episode" name="episode" type="number" min="1" value="1" />
+            </label>
+          </div>
+          <label>
+            Foto (URL, opcional)
+            <input id="image" name="image" type="url" placeholder="https://..." />
+          </label>
+          <button type="submit">Guardar código</button>
+        </form>
+        <p class="hint">
+          Los datos base del catálogo se leen desde <code>catalog.json</code>. Puedes descargar el catálogo actualizado y subirlo al repositorio para que quede guardado en GitHub.
+        </p>
+        <button id="download-catalog" type="button">Descargar catálogo actualizado</button>
+      </section>
+
+      <section class="panel">
+        <h2>Catálogo</h2>
+        <div class="tabs" role="tablist" aria-label="Filtro de catálogo">
+          <button class="tab active" data-type="movie" type="button">Películas</button>
+          <button class="tab" data-type="tv" type="button">Series</button>
+        </div>
+        <ul id="catalog-list" class="catalog-list"></ul>
+      </section>
+
+      <section class="panel">
+        <h2>Reproductor</h2>
+        <p id="player-title">Selecciona un contenido para reproducir.</p>
+        <iframe
+          id="player"
+          title="Reproductor Vidking"
+          allow="autoplay; fullscreen"
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
