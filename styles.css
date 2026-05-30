@@ -77,11 +77,19 @@ button:hover {
   margin: 0;
 }
 
+.brand-wrap h1 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+}
+
 .brand-wrap p,
 .hero-content p,
 .player-title,
 .catalog-meta p {
   color: var(--muted);
+}
+
+.brand-wrap p {
+  margin: 10px 0 0;
 }
 
 .top-actions {
@@ -229,6 +237,9 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .catalog-card {
@@ -308,6 +319,7 @@ iframe {
   color: var(--muted);
   background: var(--panel-soft);
   border: 1px dashed var(--border);
+  grid-column: 1 / -1;
 }
 
 @media (max-width: 900px) {
