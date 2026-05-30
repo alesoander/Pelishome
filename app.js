@@ -14,9 +14,12 @@ const goCatalogButton = document.getElementById('go-catalog');
 const goPlayerButton = document.getElementById('go-player');
 const catalogSection = document.getElementById('catalog-section');
 const playerSection = document.getElementById('player-section');
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
 
 let currentFilter = 'movie';
 let catalog = [];
+let searchTerm = '';
 
 function normalizeEntry(entry) {
   const normalized = {
@@ -43,7 +46,17 @@ function getPlayerUrl(item) {
 }
 
 function getFilteredCatalog() {
-  return catalog.filter((item) => item.type === currentFilter);
+  return catalog.filter((item) => {
+    if (item.type !== currentFilter) {
+      return false;
+    }
+
+    if (!searchTerm) {
+      return true;
+    }
+
+    return item.name.toLowerCase().includes(searchTerm);
+  });
 }
 
 function getFeaturedItem() {
@@ -132,7 +145,9 @@ function renderCatalog() {
   if (!filtered.length) {
     const empty = document.createElement('li');
     empty.className = 'empty-state';
-    empty.textContent = 'No hay contenidos disponibles en este filtro.';
+    empty.textContent = searchTerm
+      ? `No encontramos coincidencias para "${searchTerm}".`
+      : 'No hay contenidos disponibles en este filtro.';
     catalogList.appendChild(empty);
     renderFeatured();
     return;
@@ -150,6 +165,11 @@ function activateTab(type) {
   tabs.forEach((tab) => {
     tab.classList.toggle('active', tab.dataset.type === currentFilter);
   });
+  renderCatalog();
+}
+
+function runSearch() {
+  searchTerm = String(searchInput?.value || '').trim().toLowerCase();
   renderCatalog();
 }
 
@@ -188,5 +208,15 @@ goCatalogButton.addEventListener('click', () => {
 goPlayerButton.addEventListener('click', () => {
   playerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
+
+if (searchButton && searchInput) {
+  searchButton.addEventListener('click', runSearch);
+
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      runSearch();
+    }
+  });
+}
 
 loadCatalog();
