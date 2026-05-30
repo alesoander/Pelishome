@@ -1,0 +1,125 @@
+:root {
+  color-scheme: dark;
+  font-family: Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0f1115;
+  color: #f4f4f4;
+}
+
+header {
+  padding: 1.25rem;
+  background: #181c24;
+  border-bottom: 1px solid #2f3644;
+}
+
+h1,
+h2 {
+  margin: 0 0 0.5rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.panel {
+  background: #181c24;
+  border: 1px solid #2f3644;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.95rem;
+}
+
+input,
+select,
+button {
+  border-radius: 8px;
+  border: 1px solid #3b4354;
+  background: #0f1115;
+  color: #f4f4f4;
+  padding: 0.6rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: #e50914;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tab.active {
+  border-color: #e50914;
+}
+
+.catalog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.catalog-item {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  border: 1px solid #2f3644;
+  border-radius: 10px;
+  padding: 0.5rem;
+}
+
+.catalog-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #0f1115;
+}
+
+.catalog-item button {
+  width: 100%;
+}
+
+iframe {
+  width: 100%;
+  min-height: 340px;
+  border: 0;
+  border-radius: 8px;
+  background: #0f1115;
+}
+
+.hint {
+  color: #cdd3df;
+  font-size: 0.9rem;
+}
+
+.hidden {
+  display: none;
+}
