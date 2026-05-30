@@ -14,10 +14,18 @@
     "image": "https://media.themoviedb.org/t/p/w600_and_h900_face/eK9ZDIq7gPFRJ0GGaWvgrXLZgXX.jpg"
   },
   {
+    "tmdbId": 687163,
+    "name": "Project Hail Mary",
+    "type": "movie",
+    "image": "https://image.tmdb.org/t/p/w1280/4goQ8t9T4GiOFEuDLEPf4ev3xCN.jpg"
+  },
+   {
     "tmdbId": 220102,
     "name": "Spider-Noir",
-    "type": "movie",
-    "image": "https://www.themoviedb.org/tv/220102-spider-noir"
+    "type": "tv",
+    "season": 1,
+    "episode": 1,
+    "image": "https://image.tmdb.org/t/p/w1280/rfrzXSaiuvRMLo8PRQds0TfFrZC.jpg"
   },
   {
     "tmdbId": 1399,
