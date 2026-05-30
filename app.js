@@ -1,21 +1,22 @@
 const CATALOG_URL = './catalog.json';
 const TV_QUERY = '?color=e50914&autoPlay=true&nextEpisode=true&episodeSelector=true';
+const FALLBACK_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
 
-const form = document.getElementById('catalog-form');
-const typeSelect = document.getElementById('type');
-const tvFields = document.getElementById('tv-fields');
 const catalogList = document.getElementById('catalog-list');
 const player = document.getElementById('player');
 const playerTitle = document.getElementById('player-title');
 const tabs = Array.from(document.querySelectorAll('.tab'));
-const downloadButton = document.getElementById('download-catalog');
+const featuredTitle = document.getElementById('featured-title');
+const featuredDescription = document.getElementById('featured-description');
+const featuredPlayButton = document.getElementById('featured-play');
+const featuredExploreButton = document.getElementById('featured-explore');
+const goCatalogButton = document.getElementById('go-catalog');
+const goPlayerButton = document.getElementById('go-player');
+const catalogSection = document.getElementById('catalog-section');
+const playerSection = document.getElementById('player-section');
 
 let currentFilter = 'movie';
 let catalog = [];
-
-function toggleTvFields() {
-  tvFields.classList.toggle('hidden', typeSelect.value !== 'tv');
-}
 
 function normalizeEntry(entry) {
   const normalized = {
@@ -41,69 +42,115 @@ function getPlayerUrl(item) {
   return `https://www.vidking.net/embed/movie/${item.tmdbId}`;
 }
 
+function getFilteredCatalog() {
+  return catalog.filter((item) => item.type === currentFilter);
+}
+
+function getFeaturedItem() {
+  const filtered = getFilteredCatalog();
+  return filtered[0] || catalog[0] || null;
+}
+
+function playItem(item) {
+  if (!item) {
+    return;
+  }
+
+  player.src = getPlayerUrl(item);
+  playerTitle.textContent = `Reproduciendo: ${item.name}`;
+  playerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderFeatured() {
+  const featured = getFeaturedItem();
+
+  if (!featured) {
+    featuredTitle.textContent = 'No hay contenido disponible';
+    featuredDescription.textContent = 'Agrega elementos a catalog.json para comenzar a reproducir.';
+    featuredPlayButton.disabled = true;
+    return;
+  }
+
+  const details = featured.type === 'tv' ? `Serie • T${featured.season || 1}E${featured.episode || 1}` : 'Película';
+  featuredTitle.textContent = featured.name;
+  featuredDescription.textContent = `${details} • Reproduce en un clic desde Pelishome.`;
+  featuredPlayButton.disabled = false;
+}
+
+function createCard(item) {
+  const li = document.createElement('li');
+  li.className = 'catalog-card';
+
+  const img = document.createElement('img');
+  img.className = 'catalog-poster';
+  img.alt = `Poster de ${item.name}`;
+  img.src = item.image || FALLBACK_IMAGE;
+  img.loading = 'lazy';
+
+  const overlay = document.createElement('div');
+  overlay.className = 'catalog-overlay';
+
+  const meta = document.createElement('div');
+  meta.className = 'catalog-meta';
+
+  const badge = document.createElement('span');
+  badge.className = 'catalog-badge';
+  badge.textContent = item.type === 'tv' ? 'Serie' : 'Película';
+
+  const title = document.createElement('h3');
+  title.textContent = item.name;
+
+  const details = document.createElement('p');
+  details.textContent = item.type === 'tv' ? `Temporada ${item.season || 1} • Episodio ${item.episode || 1}` : `TMDB ${item.tmdbId}`;
+
+  const playButton = document.createElement('button');
+  playButton.className = 'card-play';
+  playButton.type = 'button';
+  playButton.textContent = 'Ver ahora';
+  playButton.addEventListener('click', () => playItem(item));
+
+  meta.appendChild(badge);
+  meta.appendChild(title);
+  meta.appendChild(details);
+
+  const actions = document.createElement('div');
+  actions.className = 'catalog-actions';
+  actions.appendChild(playButton);
+  meta.appendChild(actions);
+
+  overlay.appendChild(meta);
+  li.appendChild(img);
+  li.appendChild(overlay);
+
+  return li;
+}
+
 function renderCatalog() {
-  const filtered = catalog.filter((item) => item.type === currentFilter);
+  const filtered = getFilteredCatalog();
   catalogList.innerHTML = '';
 
   if (!filtered.length) {
     const empty = document.createElement('li');
-    empty.textContent = 'No hay contenidos para este tipo aún.';
+    empty.className = 'empty-state';
+    empty.textContent = 'No hay contenidos disponibles en este filtro.';
     catalogList.appendChild(empty);
+    renderFeatured();
     return;
   }
 
   filtered.forEach((item) => {
-    const li = document.createElement('li');
-    li.className = 'catalog-item';
-
-    const img = document.createElement('img');
-    img.alt = item.name;
-    img.src = item.image || 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
-
-    const content = document.createElement('div');
-
-    const title = document.createElement('strong');
-    title.textContent = item.name;
-
-    const details = document.createElement('div');
-    details.textContent = `TMDB: ${item.tmdbId}` + (item.type === 'tv' ? ` • T${item.season || 1}E${item.episode || 1}` : '');
-
-    const playButton = document.createElement('button');
-    playButton.type = 'button';
-    playButton.textContent = 'Ver ahora';
-    playButton.addEventListener('click', () => {
-      player.src = getPlayerUrl(item);
-      playerTitle.textContent = `Reproduciendo: ${item.name}`;
-    });
-
-    content.appendChild(title);
-    content.appendChild(details);
-    content.appendChild(playButton);
-
-    li.appendChild(img);
-    li.appendChild(content);
-    catalogList.appendChild(li);
+    catalogList.appendChild(createCard(item));
   });
+
+  renderFeatured();
 }
 
 function activateTab(type) {
-  currentFilter = type;
+  currentFilter = type === 'tv' ? 'tv' : 'movie';
   tabs.forEach((tab) => {
-    tab.classList.toggle('active', tab.dataset.type === type);
+    tab.classList.toggle('active', tab.dataset.type === currentFilter);
   });
   renderCatalog();
-}
-
-function downloadCatalog() {
-  const blob = new Blob([`${JSON.stringify(catalog, null, 2)}\n`], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'catalog.json';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
 }
 
 async function loadCatalog() {
@@ -122,35 +169,24 @@ async function loadCatalog() {
   renderCatalog();
 }
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const formData = new FormData(form);
-  const entry = normalizeEntry({
-    tmdbId: formData.get('tmdbId'),
-    name: formData.get('name'),
-    type: formData.get('type'),
-    image: formData.get('image'),
-    season: formData.get('season'),
-    episode: formData.get('episode'),
-  });
-
-  if (!entry.tmdbId || !entry.name) {
-    return;
-  }
-
-  catalog.unshift(entry);
-  activateTab(entry.type);
-  form.reset();
-  typeSelect.value = 'movie';
-  toggleTvFields();
-});
-
-typeSelect.addEventListener('change', toggleTvFields);
 tabs.forEach((tab) => {
   tab.addEventListener('click', () => activateTab(tab.dataset.type));
 });
-downloadButton.addEventListener('click', downloadCatalog);
 
-toggleTvFields();
+featuredPlayButton.addEventListener('click', () => {
+  playItem(getFeaturedItem());
+});
+
+featuredExploreButton.addEventListener('click', () => {
+  catalogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+goCatalogButton.addEventListener('click', () => {
+  catalogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+goPlayerButton.addEventListener('click', () => {
+  playerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 loadCatalog();

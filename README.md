@@ -5,21 +5,16 @@ Website estático para visualizar películas y series usando Vidking.
 ## Qué hace
 
 - Muestra un catálogo de películas y series desde `catalog.json`.
-- Permite alternar de forma simple entre **Películas** y **Series**.
+- Permite alternar entre **Películas** y **Series** con pestañas en la interfaz.
 - Reproduce contenido con:
   - Películas: `https://www.vidking.net/embed/movie/{tmdbId}`
   - Series: `https://www.vidking.net/embed/tv/{tmdbId}/{season}/{episode}`
-- Incluye en la página de inicio un formulario para cargar:
-  - Código TMDB
-  - Nombre
-  - Tipo (película o serie)
-  - Foto opcional
+- Incluye una portada estilo streaming y un contenido destacado reproducible.
 
-## Repositorio de texto del catálogo
+## Catálogo
 
 El catálogo base se guarda en el archivo versionado `catalog.json`.
-
-Desde la web puedes agregar elementos y usar **"Descargar catálogo actualizado"** para generar un nuevo `catalog.json`, luego reemplazar el archivo del repositorio y hacer commit para que quede guardado en GitHub.
+La interfaz está orientada únicamente al usuario final y no incluye formularios de carga o edición manual.
 
 ## Auto deploy en GitHub Pages
 
