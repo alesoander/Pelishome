@@ -1,9 +1,23 @@
 [
   {
+    "tmdbId": 1430077,
+    "name": "Hokum",
+    "type": "movie",
+    "image": "https://image.tmdb.org/t/p/w1280/jKPWwsbAM6HKURPYQ1eG8DmKMKn.jpg"
+  },
+  {
     "tmdbId": 603,
     "name": "The Matrix",
     "type": "movie",
     "image": "https://image.tmdb.org/t/p/w300/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"
+  },
+   {
+    "tmdbId": 1408,
+    "name": "Dr. House",
+    "type": "tv",
+    "season": 1,
+    "episode": 1,
+    "image": "https://image.tmdb.org/t/p/w1280/lW7MvZ4m49IUj2UrUu4z0xVVl81.jpg"
   },
     {
     "tmdbId": 61889,
